@@ -1,9 +1,10 @@
 const request = require("postman-request");
 
-const weather = (location, callbackFunction) => {
-  const url = `http://api.weatherapi.com/v1/current.json?key=a3f9b9dc427b4400bba55628241206&q=${encodeURIComponent(
-    location
-  )}`;
+const weather = (latitude, longitude, callbackFunction) => {
+  // const url = `http://api.weatherapi.com/v1/current.json?key=a3f9b9dc427b4400bba55628241206&q=${encodeURIComponent(
+  //   location
+  // )}`;
+  const url = `http://api.weatherapi.com/v1/current.json?key=a3f9b9dc427b4400bba55628241206&q=${latitude},${longitude}`;
 
   request({ url, json: true }, (error, response, body) => {
     if (error) {
