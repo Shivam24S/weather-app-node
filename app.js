@@ -1,38 +1,26 @@
 const geocoding = require("./util/geocoding.js");
+const weather = require("./util/weather.js");
 
-const url =
-  "http://api.weatherapi.com/v1/current.json?key=a3f9b9dc427b4400bba55628241206&q=ahmedabad";
+// getting wether data
 
-request({ url, json: true }, (error, response, body) => {
+weather("surat", (data, error) => {
   if (error) {
-    console.log("Can't fetch weather data:", error);
-  } else if (response.statusCode !== 200) {
-    console.log(
-      `Failed to fetch weather data. Status code: ${response.statusCode}`
-    );
+    console.log(error);
   } else {
-    console.log("Weather Data:", body);
-    if (body && body.current) {
-      console.log("Current Temperature:", body.current.temp_c);
-      console.log("Condition:", body.current.condition.text);
-    } else {
-      console.log(
-        "No current weather data available or unexpected response format."
-      );
-    }
+    console.log("weather data", data);
   }
 });
 
 // getting geocoding data
 
-geocoding("ahmadabad", (data, error) => {
-  if (error) {
-    console.log("Error:", error);
-  } else {
-    console.log("Geocoding Data:", {
-      placeName: data.placeName,
-      latitude: data.latitude,
-      longitude: data.longitude,
-    });
-  }
-});
+// geocoding("ahmadabad", (data, error) => {
+//   if (error) {
+//     console.log("Error:", error);
+//   } else {
+//     console.log("Geocoding Data:", {
+//       placeName: data.placeName,
+//       latitude: data.latitude,
+//       longitude: data.longitude,
+//     });
+//   }
+// });
