@@ -1,5 +1,3 @@
-const geocoding = require("./util/geocoding.js");
-
 const url =
   "http://api.weatherapi.com/v1/current.json?key=a3f9b9dc427b4400bba55628241206&q=ahmedabad";
 
@@ -20,19 +18,5 @@ request({ url, json: true }, (error, response, body) => {
         "No current weather data available or unexpected response format."
       );
     }
-  }
-});
-
-// getting geocoding data
-
-geocoding("ahmadabad", (data, error) => {
-  if (error) {
-    console.log("Error:", error);
-  } else {
-    console.log("Geocoding Data:", {
-      placeName: data.placeName,
-      latitude: data.latitude,
-      longitude: data.longitude,
-    });
   }
 });
