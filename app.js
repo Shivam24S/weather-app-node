@@ -1,42 +1,30 @@
 const geocoding = require("./util/geocoding.js");
 const weather = require("./util/weather.js");
 
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
+const locationName = process.argv[2];
 
-yargs(hideBin(process.argv)).command({
-  command: "name",
-  describe: "Specify location name",
-  builder: {
-    name: {
-      describe: "Location name",
-      demandOption: true,
-      type: "string",
-    },
-  },
-  handler(argv) {
-    let locationName = argv.name;
+if (!locationName) {
+  console.log("Please provide a location name");
+} else {
+  // getting geocoding data
 
-    // getting geocoding data
-
-    geocoding(locationName, (data, error) => {
-      if (error) {
-        console.log("Error:", error);
-      } else {
-        console.log("Geocoding Data:", {
-          placeName: data.placeName,
-          latitude: data.latitude,
-          longitude: data.longitude,
-        });
-      }
-      // getting wether data
-      weather(data.latitude, data.longitude, (data, error) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("weather data", data);
-        }
+  geocoding(locationName, (data, error) => {
+    if (error) {
+      console.log("Error:", error);
+    } else {
+      console.log("Geocoding Data:", {
+        placeName: data.placeName,
+        latitude: data.latitude,
+        longitude: data.longitude,
       });
+    }
+    // getting wether data
+    weather(data.latitude, data.longitude, (data, error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("weather data", data);
+      }
     });
-  },
-}).argv;
+  });
+}
